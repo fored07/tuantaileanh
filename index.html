@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuan Tai Profile</title>
+    <style>
+        /* Định dạng chung */
+        body {
+            background-color: #0d0d0d;
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Hộp chứa profile */
+        .profile-box {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            width: 250px;
+            transition: transform 0.3s ease-in-out;
+            position: relative;
+        }
+
+        .profile-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
+        }
+
+        /* Khung ảnh đại diện */
+        .avatar-box {
+            position: relative;
+            display: inline-block;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+        }
+
+        /* Hiệu ứng rực cháy */
+        .fire-effect {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 165, 0, 0.8), rgba(255, 69, 0, 0.6), transparent);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
+            animation: fireAnimation 1s infinite alternate ease-in-out;
+        }
+
+        @keyframes fireAnimation {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
+                transform: scale(1);
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(255, 69, 0, 1);
+                transform: scale(1.1);
+            }
+        }
+
+        /* Tên profile */
+        .profile-name {
+            margin: 10px 0;
+            font-size: 20px;
+            text-shadow: 0 0 10px cyan;
+        }
+
+        /* Mạng xã hội */
+        .social-links {
+            margin-top: 10px;
+        }
+
+        .social-link {
+            display: block;
+            padding: 8px;
+            margin: 5px 0;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .tiktok { background: #ff0050; }
+        .facebook { background: #1877f2; }
+        .telegram { background: #0088cc; }
+
+        .social-link:hover {
+            filter: brightness(1.3);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-box">
+        <div class="avatar-box">
+            <img src="avatar.jpg" alt="Ảnh đại diện" class="avatar">
+            <div class="fire-effect"></div>
+        </div>
+        <h2 class="profile-name">Tuan Tai Profile</h2>
+        <div class="social-links">
+            <a href="https://www.tiktok.com/@yourusername" target="_blank" class="social-link tiktok">TikTok</a>
+            <a href="https://www.facebook.com/yourusername" target="_blank" class="social-link facebook">Facebook</a>
+            <a href="https://t.me/yourusername" target="_blank" class="social-link telegram">Telegram</a>
+        </div>
+    </div>
+
+</body>
+</html>
