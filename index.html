@@ -18,19 +18,8 @@
             height: 100%;
             margin: 0;
             flex-direction: column;
-            overflow: auto; /* Cho phép cuộn trang */
+            overflow: auto;
             position: relative;
-        }
-
-        /* Lớp phủ nền để làm mờ */
-        .background-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: -1;
         }
 
         /* Hộp profile */
@@ -57,13 +46,30 @@
             display: inline-block;
             overflow: hidden;
             border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8); /* Khung sáng xung quanh ảnh */
+            animation: glow 1.5s infinite alternate; /* Áp dụng hiệu ứng sáng chói */
         }
 
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            border: 3px solid transparent;
+            border: 5px solid transparent;
+            transition: transform 0.5s ease;
+        }
+
+        .avatar-box:hover .avatar {
+            transform: scale(1.1); /* Phóng to ảnh khi hover */
+        }
+
+        /* Hiệu ứng sáng chói cho khung ảnh */
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 255, 255, 0.3);
+            }
+            100% {
+                box-shadow: 0 0 30px rgba(0, 255, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.4);
+            }
         }
 
         /* Tên profile */
@@ -96,8 +102,8 @@
             text-decoration: none;
             border-radius: 50%;
             transition: 0.3s;
-            width: 50px; /* Kích thước chuẩn cho link */
-            height: 50px; /* Kích thước chuẩn cho link */
+            width: 50px;
+            height: 50px;
             justify-content: center;
         }
 
@@ -124,7 +130,6 @@
             justify-content: center;
             gap: 15px;
         }
-
     </style>
 </head>
 <body>
