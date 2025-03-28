@@ -21,12 +21,28 @@
             opacity: 0;
             transform: translateX(100px);
             transition: opacity 1s ease-out, transform 1s ease-out;
+            overflow: hidden;
         }
 
         /* Khi trang tải xong */
         body.loaded {
             opacity: 1;
             transform: translateX(0);
+        }
+
+        /* Hiệu ứng tuyết rơi */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            color: white;
+            font-size: 12px;
+            user-select: none;
+            animation: snowfall linear infinite;
+        }
+
+        @keyframes snowfall {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(100vh); }
         }
 
         /* Lớp phủ nền để làm mờ */
@@ -110,7 +126,8 @@
         }
 
         .social-link {
-            display: block;
+            display: flex;
+            align-items: center;
             padding: 8px;
             margin: 5px 0;
             color: white;
@@ -128,30 +145,50 @@
             transform: scale(1.1);
         }
 
-        /* Nút điều khiển nhạc */
-        .music-controls {
-            margin-top: 20px;
+        /* Định dạng icon 3D */
+        .social-icon {
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+            margin-right: 10px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            transition: transform 0.3s ease-in-out;
         }
 
-        .music-btn {
-            background: #ffcc00;
-            color: black;
-            padding: 8px 15px;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: 0.3s;
-        }
-
-        .music-btn:hover {
-            background: #ffdd44;
+        .social-link:hover .social-icon {
+            transform: scale(1.2);
         }
     </style>
 </head>
 <body>
 
-    <!-- Lớp phủ để làm mờ nền -->
+    <!-- Hiệu ứng tuyết -->
+    <script>
+        function createSnowflake() {
+            const snowflake = document.createElement("div");
+            snowflake.classList.add("snowflake");
+            snowflake.innerHTML = "❄";
+            document.body.appendChild(snowflake);
+
+            let startPos = Math.random() * window.innerWidth;
+            let duration = Math.random() * 5 + 5;
+            snowflake.style.left = `${startPos}px`;
+            snowflake.style.animationDuration = `${duration}s`;
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, duration * 1000);
+        }
+        setInterval(createSnowflake, 200);
+
+        // Đảm bảo body tải đầy đủ trước khi hiển thị
+        window.onload = function() {
+            document.body.classList.add('loaded');
+        };
+    </script>
+
+    <!-- Lớp phủ nền -->
     <div class="background-overlay"></div>
 
     <div class="profile-box">
@@ -162,57 +199,25 @@
         <h2 class="profile-name">Tuan Tai Profile</h2>
         <p class="profile-note">tuantaileanh là một con người buôn bán uy tín đẹp trai số 1 Nghi Xuân</p>
         <div class="social-links">
-            <a href="https://tiktok.com/iosmod.site" target="_blank" class="social-link tiktok">TikTok</a>
-            <a href="https://facebook.com/imma65t" target="_blank" class="social-link facebook">Facebook</a>
-            <a href="https://t.me/foredios" target="_blank" class="social-link telegram">Telegram</a>
-            <a href="https://iosmod.site" target="_blank" class="social-link website">Website</a>
+            <a href="https://tiktok.com/iosmod.site" target="_blank" class="social-link tiktok">
+                <img src="https://i.imgur.com/0z8FvXg.png" class="social-icon"> TikTok
+            </a>
+            <a href="https://facebook.com/imma65t" target="_blank" class="social-link facebook">
+                <img src="https://i.imgur.com/0RWzIyz.png" class="social-icon"> Facebook
+            </a>
+            <a href="https://t.me/foredios" target="_blank" class="social-link telegram">
+                <img src="https://i.imgur.com/FJDp8Iw.png" class="social-icon"> Telegram
+            </a>
+            <a href="https://iosmod.site" target="_blank" class="social-link website">
+                <img src="https://i.imgur.com/xXXE6nS.png" class="social-icon"> Website
+            </a>
         </div>
     </div>
 
-    <!-- Điều khiển nhạc -->
-    <div class="music-controls">
-        <button class="music-btn" onclick="toggleMusic()">🎵 Bật/Tắt Nhạc</button>
-    </div>
-
     <!-- Nhạc nền -->
-    <audio id="backgroundMusic" loop>
+    <audio id="backgroundMusic" loop autoplay>
         <source src="https://bientandat.site/nhac/350.mp3" type="audio/mp3">
     </audio>
-
-    <script>
-        var music = document.getElementById("backgroundMusic");
-
-        // Khi trang tải xong, phát nhạc tự động với âm lượng to nhất
-        window.onload = function() {
-            document.body.classList.add("loaded");
-
-            // Thiết lập âm lượng tối đa
-            music.volume = 1.0;
-
-            // Thử phát nhạc ngay khi vào web
-            var playPromise = music.play();
-            if (playPromise !== undefined) {
-                playPromise.catch(error => {
-                    console.log("Tự động phát nhạc bị chặn, chờ tương tác...");
-                });
-            }
-        };
-
-        // Khi người dùng cuộn trang, nếu nhạc chưa phát thì phát ngay
-        window.addEventListener("scroll", function() {
-            if (music.paused) {
-                music.play().catch(error => console.log("Tự động phát bị chặn:", error));
-            }
-        });
-
-        function toggleMusic() {
-            if (music.paused) {
-                music.play();
-            } else {
-                music.pause();
-            }
-        }
-    </script>
 
 </body>
 </html>
