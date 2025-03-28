@@ -22,10 +22,10 @@
             position: relative;
         }
 
-        /* Hộp profile */
+        /* Hộp profile với nền trắng */
         .profile-box {
             text-align: center;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 1); /* Nền trắng */
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
@@ -40,14 +40,14 @@
             box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
         }
 
-        /* Ảnh đại diện */
+        /* Khung ảnh đại diện với hiệu ứng rực lửa */
         .avatar-box {
             position: relative;
             display: inline-block;
             overflow: hidden;
             border-radius: 50%;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.8); /* Khung sáng xung quanh ảnh */
-            animation: glow 1.5s infinite alternate; /* Áp dụng hiệu ứng sáng chói */
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.8), 0 0 50px rgba(255, 140, 0, 0.6); /* Khung ảnh rực lửa */
+            animation: fire-glow 1.5s infinite alternate; /* Áp dụng hiệu ứng sáng như lửa */
         }
 
         .avatar {
@@ -62,13 +62,13 @@
             transform: scale(1.1); /* Phóng to ảnh khi hover */
         }
 
-        /* Hiệu ứng sáng chói cho khung ảnh */
-        @keyframes glow {
+        /* Hiệu ứng ánh sáng rực lửa */
+        @keyframes fire-glow {
             0% {
-                box-shadow: 0 0 20px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 255, 255, 0.3);
+                box-shadow: 0 0 20px rgba(255, 69, 0, 0.5), 0 0 30px rgba(255, 140, 0, 0.3);
             }
             100% {
-                box-shadow: 0 0 30px rgba(0, 255, 255, 0.8), 0 0 50px rgba(0, 255, 255, 0.4);
+                box-shadow: 0 0 50px rgba(255, 69, 0, 0.8), 0 0 70px rgba(255, 140, 0, 0.6);
             }
         }
 
@@ -88,7 +88,7 @@
             opacity: 0.8;
         }
 
-        /* Link mạng xã hội */
+        /* Link mạng xã hội với nền trong suốt */
         .social-links {
             margin-top: 15px;
         }
@@ -97,26 +97,26 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 15px 30px; /* Điều chỉnh padding để các link dài hơn */
-            margin: 10px 0;
+            padding: 10px 20px;
+            margin: 8px 0;
             color: white;
             text-decoration: none;
             border-radius: 30px;  /* Cạnh tròn cho link */
             transition: 0.3s;
-            width: 230px;  /* Kích thước cố định, dài như hộp */
-            height: 50px;  /* Chiều cao cố định */
+            width: 200px;  /* Kích thước nhỏ hơn */
+            height: 40px;  /* Chiều cao nhỏ hơn */
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px;
             font-family: 'Quicksand', sans-serif; /* Chữ mềm mại */
             font-weight: 600;
             text-transform: uppercase;
-            background: linear-gradient(45deg, #ff007f, #ff8c00); /* Gradient màu nền */
+            background: transparent; /* Nền trong suốt */
             box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* Hiệu ứng sáng quanh các link */
         }
 
         .social-link:hover {
-            transform: scale(1.1);
-            background: linear-gradient(45deg, #ff8c00, #ff007f); /* Chuyển màu nền khi hover */
+            transform: scale(1.05);
+            background: transparent; /* Giữ nền trong suốt khi hover */
             box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
         }
 
@@ -126,8 +126,8 @@
         .website { background: #ff9900; }
 
         .social-icon {
-            width: 30px;
-            height: 30px;
+            width: 25px;
+            height: 25px;
             border-radius: 50%;
             margin-right: 10px;
         }
@@ -137,7 +137,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
     </style>
 </head>
@@ -173,5 +173,15 @@
         <source src="https://bientandat.site/nhac/350.mp3" type="audio/mp3">
     </audio>
 
+    <script>
+        // Kiểm tra và phát nhạc nếu chưa phát
+        window.onload = function() {
+            var audio = document.getElementById('backgroundMusic');
+            audio.play().catch(function(error) {
+                // Nếu trình duyệt chặn, thử phát lại sau khi người dùng tương tác
+                console.log("Nhạc không thể tự động phát:", error);
+            });
+        };
+    </script>
 </body>
 </html>
