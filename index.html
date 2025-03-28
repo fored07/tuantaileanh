@@ -97,21 +97,27 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 25px; /* Điều chỉnh padding để các link dài hơn */
-            margin: 5px 0;
+            padding: 15px 30px; /* Điều chỉnh padding để các link dài hơn */
+            margin: 10px 0;
             color: white;
             text-decoration: none;
-            border-radius: 25px;  /* Cạnh tròn cho link */
+            border-radius: 30px;  /* Cạnh tròn cho link */
             transition: 0.3s;
-            width: 200px;  /* Kích thước cố định, dài như hộp */
-            height: 45px;  /* Chiều cao cố định */
+            width: 230px;  /* Kích thước cố định, dài như hộp */
+            height: 50px;  /* Chiều cao cố định */
             justify-content: center;
             font-size: 18px;
             font-family: 'Quicksand', sans-serif; /* Chữ mềm mại */
+            font-weight: 600;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #ff007f, #ff8c00); /* Gradient màu nền */
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* Hiệu ứng sáng quanh các link */
         }
 
         .social-link:hover {
             transform: scale(1.1);
+            background: linear-gradient(45deg, #ff8c00, #ff007f); /* Chuyển màu nền khi hover */
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
         }
 
         .tiktok { background: #ff0050; }
