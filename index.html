@@ -18,31 +18,7 @@
             height: 100vh;
             margin: 0;
             flex-direction: column;
-            opacity: 0;
-            transform: translateX(100px);
-            transition: opacity 1s ease-out, transform 1s ease-out;
             overflow: hidden;
-        }
-
-        /* Khi trang tải xong */
-        body.loaded {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* Hiệu ứng tuyết rơi */
-        .snowflake {
-            position: fixed;
-            top: -10px;
-            color: white;
-            font-size: 12px;
-            user-select: none;
-            animation: snowfall linear infinite;
-        }
-
-        @keyframes snowfall {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(100vh); }
         }
 
         /* Lớp phủ nền để làm mờ */
@@ -77,6 +53,8 @@
         .avatar-box {
             position: relative;
             display: inline-block;
+            overflow: hidden;
+            border-radius: 50%;
         }
 
         .avatar {
@@ -86,22 +64,42 @@
             border: 3px solid transparent;
         }
 
-        /* Hiệu ứng rực cháy */
-        .fire-effect {
+        /* Hiệu ứng đôi cánh bay bay */
+        .avatar-box:before, .avatar-box:after {
+            content: '';
             position: absolute;
-            top: -5px;
-            left: -5px;
-            width: 110px;
-            height: 110px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 165, 0, 0.8);
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 165, 0, 0.8), rgba(255, 69, 0, 0.6), transparent);
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
-            animation: fireAnimation 1s infinite alternate ease-in-out;
+            animation: flyWings 3s infinite ease-in-out;
         }
 
-        @keyframes fireAnimation {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
+        .avatar-box:before {
+            top: -20px;
+            left: -60px;
+            animation-delay: -1.5s;
+        }
+
+        .avatar-box:after {
+            top: -20px;
+            right: -60px;
+            animation-delay: -1.5s;
+        }
+
+        @keyframes flyWings {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.8;
+            }
+            50% {
+                transform: scale(1.5) rotate(30deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 0.8;
+            }
         }
 
         /* Tên profile */
@@ -136,16 +134,16 @@
             transition: 0.3s;
         }
 
-        .tiktok { background: #ff0050; }
-        .facebook { background: #1877f2; }
-        .telegram { background: #0088cc; }
-        .website { background: #ff9900; }
+        .tiktok {
+            background: #ff0050;
+            padding: 12px 25px;
+            border-radius: 50px; /* Chỉnh thành hình tròn */
+        }
 
-        .social-link:hover {
+        .tiktok:hover {
             transform: scale(1.1);
         }
 
-        /* Định dạng icon 3D */
         .social-icon {
             width: 30px;
             height: 30px;
@@ -156,37 +154,16 @@
             transition: transform 0.3s ease-in-out;
         }
 
-        .social-link:hover .social-icon {
+        .social-link.tiktok:hover .social-icon {
             transform: scale(1.2);
         }
+
+        .facebook { background: #1877f2; }
+        .telegram { background: #0088cc; }
+        .website { background: #ff9900; }
     </style>
 </head>
 <body>
-
-    <!-- Hiệu ứng tuyết -->
-    <script>
-        function createSnowflake() {
-            const snowflake = document.createElement("div");
-            snowflake.classList.add("snowflake");
-            snowflake.innerHTML = "❄";
-            document.body.appendChild(snowflake);
-
-            let startPos = Math.random() * window.innerWidth;
-            let duration = Math.random() * 5 + 5;
-            snowflake.style.left = `${startPos}px`;
-            snowflake.style.animationDuration = `${duration}s`;
-
-            setTimeout(() => {
-                snowflake.remove();
-            }, duration * 1000);
-        }
-        setInterval(createSnowflake, 200);
-
-        // Đảm bảo body tải đầy đủ trước khi hiển thị
-        window.onload = function() {
-            document.body.classList.add('loaded');
-        };
-    </script>
 
     <!-- Lớp phủ nền -->
     <div class="background-overlay"></div>
@@ -194,22 +171,21 @@
     <div class="profile-box">
         <div class="avatar-box">
             <img src="https://i.imgur.com/2FadDw0.jpeg" alt="Ảnh đại diện" class="avatar">
-            <div class="fire-effect"></div>
         </div>
         <h2 class="profile-name">Tuan Tai Profile</h2>
         <p class="profile-note">tuantaileanh là một con người buôn bán uy tín đẹp trai số 1 Nghi Xuân</p>
         <div class="social-links">
             <a href="https://tiktok.com/iosmod.site" target="_blank" class="social-link tiktok">
-                <img src="https://i.imgur.com/0z8FvXg.png" class="social-icon"> TikTok
+                <img src="https://i.imgur.com/hp7IHdH.png" class="social-icon"> TikTok
             </a>
             <a href="https://facebook.com/imma65t" target="_blank" class="social-link facebook">
-                <img src="https://i.imgur.com/0RWzIyz.png" class="social-icon"> Facebook
+                <img src="https://i.imgur.com/3G0sP0J.png" class="social-icon"> Facebook
             </a>
             <a href="https://t.me/foredios" target="_blank" class="social-link telegram">
-                <img src="https://i.imgur.com/FJDp8Iw.png" class="social-icon"> Telegram
+                <img src="https://i.imgur.com/cDNhApQ.png" class="social-icon"> Telegram
             </a>
             <a href="https://iosmod.site" target="_blank" class="social-link website">
-                <img src="https://i.imgur.com/xXXE6nS.png" class="social-icon"> Website
+                <img src="https://i.imgur.com/Dw5OjBA.jpeg" class="social-icon"> Website
             </a>
         </div>
     </div>
