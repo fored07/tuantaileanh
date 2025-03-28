@@ -6,9 +6,10 @@
     <title>Tuan Tai Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Định dạng chung */
+        /* Định dạng nền */
         body {
-            background-color: #0d0d0d;
+            background: url('https://i.imgur.com/qUmSIVg.jpeg') no-repeat center center fixed;
+            background-size: cover;
             color: white;
             font-family: 'Poppins', sans-serif;
             display: flex;
@@ -17,9 +18,29 @@
             height: 100vh;
             margin: 0;
             flex-direction: column;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
         }
 
-        /* Hộp chứa profile */
+        /* Khi trang tải xong */
+        body.loaded {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Lớp phủ nền để làm mờ */
+        .background-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: -1;
+        }
+
+        /* Hộp profile */
         .profile-box {
             text-align: center;
             background: rgba(255, 255, 255, 0.1);
@@ -36,7 +57,7 @@
             box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
         }
 
-        /* Khung ảnh đại diện */
+        /* Ảnh đại diện */
         .avatar-box {
             position: relative;
             display: inline-block;
@@ -63,14 +84,8 @@
         }
 
         @keyframes fireAnimation {
-            0% {
-                box-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
-                transform: scale(1);
-            }
-            100% {
-                box-shadow: 0 0 25px rgba(255, 69, 0, 1);
-                transform: scale(1.1);
-            }
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
         }
 
         /* Tên profile */
@@ -89,7 +104,7 @@
             opacity: 0.8;
         }
 
-        /* Mạng xã hội */
+        /* Link mạng xã hội */
         .social-links {
             margin-top: 15px;
         }
@@ -107,10 +122,9 @@
         .tiktok { background: #ff0050; }
         .facebook { background: #1877f2; }
         .telegram { background: #0088cc; }
-        .website { background: #ff9900; } /* Màu cam cho website */
+        .website { background: #ff9900; }
 
         .social-link:hover {
-            filter: brightness(1.3);
             transform: scale(1.1);
         }
 
@@ -136,6 +150,9 @@
     </style>
 </head>
 <body>
+
+    <!-- Lớp phủ để làm mờ nền -->
+    <div class="background-overlay"></div>
 
     <div class="profile-box">
         <div class="avatar-box">
@@ -164,7 +181,29 @@
 
     <script>
         var music = document.getElementById("backgroundMusic");
-        var isPlaying = false; // Kiểm tra nhạc đã phát chưa
+
+        // Khi trang tải xong, phát nhạc tự động với âm lượng to nhất
+        window.onload = function() {
+            document.body.classList.add("loaded");
+
+            // Thiết lập âm lượng tối đa
+            music.volume = 1.0;
+
+            // Thử phát nhạc ngay khi vào web
+            var playPromise = music.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log("Tự động phát nhạc bị chặn, chờ tương tác...");
+                });
+            }
+        };
+
+        // Khi người dùng cuộn trang, nếu nhạc chưa phát thì phát ngay
+        window.addEventListener("scroll", function() {
+            if (music.paused) {
+                music.play().catch(error => console.log("Tự động phát bị chặn:", error));
+            }
+        });
 
         function toggleMusic() {
             if (music.paused) {
@@ -173,19 +212,6 @@
                 music.pause();
             }
         }
-
-        // Phát nhạc khi cuộn trang
-        window.addEventListener("scroll", function() {
-            if (!isPlaying) {
-                music.play().catch(error => console.log("Tự động phát nhạc bị chặn:", error));
-                isPlaying = true;
-            }
-        });
-
-        // Thiết lập âm lượng mặc định
-        document.addEventListener("DOMContentLoaded", function() {
-            music.volume = 0.5;
-        });
     </script>
 
 </body>
