@@ -4,35 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tuan Tai Profile</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Định dạng nền */
+        /* Định dạng chung */
         body {
-            background: url('https://i.imgur.com/qUmSIVg.jpeg') no-repeat center center fixed;
-            background-size: cover;
+            background-color: #0d0d0d;
             color: white;
             font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100%;
+            height: 100vh;
             margin: 0;
             flex-direction: column;
-            overflow: auto;
-            position: relative;
         }
 
-        /* Hộp profile với nền trắng */
+        /* Hộp chứa profile */
         .profile-box {
             text-align: center;
-            background: rgba(255, 255, 255, 1); /* Nền trắng */
+            background: rgba(255, 255, 255, 0.1);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
             width: 280px;
             transition: transform 0.3s ease-in-out;
             position: relative;
-            margin-top: 50px;
         }
 
         .profile-box:hover {
@@ -40,35 +36,40 @@
             box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
         }
 
-        /* Khung ảnh đại diện với hiệu ứng rực lửa */
+        /* Khung ảnh đại diện */
         .avatar-box {
             position: relative;
             display: inline-block;
-            overflow: hidden;
-            border-radius: 50%;
-            box-shadow: 0 0 30px rgba(255, 69, 0, 0.8), 0 0 50px rgba(255, 140, 0, 0.6); /* Khung ảnh rực lửa */
-            animation: fire-glow 1.5s infinite alternate; /* Áp dụng hiệu ứng sáng như lửa */
         }
 
         .avatar {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            border: 5px solid transparent;
-            transition: transform 0.5s ease;
+            border: 3px solid transparent;
         }
 
-        .avatar-box:hover .avatar {
-            transform: scale(1.1); /* Phóng to ảnh khi hover */
+        /* Hiệu ứng rực cháy */
+        .fire-effect {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 165, 0, 0.8), rgba(255, 69, 0, 0.6), transparent);
+            box-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
+            animation: fireAnimation 1s infinite alternate ease-in-out;
         }
 
-        /* Hiệu ứng ánh sáng rực lửa */
-        @keyframes fire-glow {
+        @keyframes fireAnimation {
             0% {
-                box-shadow: 0 0 20px rgba(255, 69, 0, 0.5), 0 0 30px rgba(255, 140, 0, 0.3);
+                box-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
+                transform: scale(1);
             }
             100% {
-                box-shadow: 0 0 50px rgba(255, 69, 0, 0.8), 0 0 70px rgba(255, 140, 0, 0.6);
+                box-shadow: 0 0 25px rgba(255, 69, 0, 1);
+                transform: scale(1.1);
             }
         }
 
@@ -88,100 +89,104 @@
             opacity: 0.8;
         }
 
-        /* Link mạng xã hội với nền trong suốt */
+        /* Mạng xã hội */
         .social-links {
             margin-top: 15px;
         }
 
         .social-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 20px;
-            margin: 8px 0;
+            display: block;
+            padding: 8px;
+            margin: 5px 0;
             color: white;
             text-decoration: none;
-            border-radius: 30px;  /* Cạnh tròn cho link */
+            border-radius: 5px;
             transition: 0.3s;
-            width: 200px;  /* Kích thước nhỏ hơn */
-            height: 40px;  /* Chiều cao nhỏ hơn */
-            justify-content: center;
-            font-size: 16px;
-            font-family: 'Quicksand', sans-serif; /* Chữ mềm mại */
-            font-weight: 600;
-            text-transform: uppercase;
-            background: transparent; /* Nền trong suốt */
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* Hiệu ứng sáng quanh các link */
-        }
-
-        .social-link:hover {
-            transform: scale(1.05);
-            background: transparent; /* Giữ nền trong suốt khi hover */
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
         }
 
         .tiktok { background: #ff0050; }
         .facebook { background: #1877f2; }
         .telegram { background: #0088cc; }
-        .website { background: #ff9900; }
+        .website { background: #ff9900; } /* Màu cam cho website */
 
-        .social-icon {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            margin-right: 10px;
+        .social-link:hover {
+            filter: brightness(1.3);
+            transform: scale(1.1);
         }
 
-        /* Các liên kết sẽ được căn giữa và có hiệu ứng tròn */
-        .social-links {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
+        /* Nút điều khiển nhạc */
+        .music-controls {
+            margin-top: 20px;
+        }
+
+        .music-btn {
+            background: #ffcc00;
+            color: black;
+            padding: 8px 15px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .music-btn:hover {
+            background: #ffdd44;
         }
     </style>
 </head>
 <body>
 
-    <!-- Lớp phủ nền -->
-    <div class="background-overlay"></div>
-
     <div class="profile-box">
         <div class="avatar-box">
             <img src="https://i.imgur.com/2FadDw0.jpeg" alt="Ảnh đại diện" class="avatar">
+            <div class="fire-effect"></div>
         </div>
         <h2 class="profile-name">Tuan Tai Profile</h2>
         <p class="profile-note">tuantaileanh là một con người buôn bán uy tín đẹp trai số 1 Nghi Xuân</p>
         <div class="social-links">
-            <a href="https://tiktok.com/iosmod.site" target="_blank" class="social-link tiktok">
-                <img src="https://i.imgur.com/hp7IHdH.png" class="social-icon"> Tiktok
-            </a>
-            <a href="https://facebook.com/imma65t" target="_blank" class="social-link facebook">
-                <img src="https://i.imgur.com/3G0sP0J.png" class="social-icon"> Facebook
-            </a>
-            <a href="https://t.me/foredios" target="_blank" class="social-link telegram">
-                <img src="https://i.imgur.com/cDNhApQ.png" class="social-icon"> Telegram
-            </a>
-            <a href="https://iosmod.site" target="_blank" class="social-link website">
-                <img src="https://i.imgur.com/Dw5OjBA.jpeg" class="social-icon"> Website
-            </a>
+            <a href="https://tiktok.com/iosmod.site" target="_blank" class="social-link tiktok">TikTok</a>
+            <a href="https://facebook.com/imma65t" target="_blank" class="social-link facebook">Facebook</a>
+            <a href="https://t.me/foredios" target="_blank" class="social-link telegram">Telegram</a>
+            <a href="https://iosmod.site" target="_blank" class="social-link website">Website</a>
         </div>
     </div>
 
+    <!-- Điều khiển nhạc -->
+    <div class="music-controls">
+        <button class="music-btn" onclick="toggleMusic()">🎵 Bật/Tắt Nhạc</button>
+    </div>
+
     <!-- Nhạc nền -->
-    <audio id="backgroundMusic" loop autoplay>
+    <audio id="backgroundMusic" loop>
         <source src="https://bientandat.site/nhac/350.mp3" type="audio/mp3">
     </audio>
 
     <script>
-        // Kiểm tra và phát nhạc nếu chưa phát
-        window.onload = function() {
-            var audio = document.getElementById('backgroundMusic');
-            audio.play().catch(function(error) {
-                // Nếu trình duyệt chặn, thử phát lại sau khi người dùng tương tác
-                console.log("Nhạc không thể tự động phát:", error);
-            });
-        };
+        var music = document.getElementById("backgroundMusic");
+        var isPlaying = false; // Kiểm tra nhạc đã phát chưa
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+            } else {
+                music.pause();
+            }
+        }
+
+        // Phát nhạc khi cuộn trang
+        window.addEventListener("scroll", function() {
+            if (!isPlaying) {
+                music.play().catch(error => console.log("Tự động phát nhạc bị chặn:", error));
+                isPlaying = true;
+            }
+        });
+
+        // Thiết lập âm lượng mặc định
+        document.addEventListener("DOMContentLoaded", function() {
+            music.volume = 0.5;
+        });
     </script>
+
 </body>
 </html>
