@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tuan Tai Profile</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
         /* Định dạng nền */
         body {
@@ -15,57 +15,25 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 100%;
             margin: 0;
             flex-direction: column;
-            opacity: 0;
-            transform: translateX(100px);
-            transition: opacity 1s ease-out, transform 1s ease-out;
-            overflow: hidden;
+            overflow: auto;
+            position: relative;
         }
 
-        /* Khi trang tải xong */
-        body.loaded {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* Hiệu ứng tuyết rơi */
-        .snowflake {
-            position: fixed;
-            top: -10px;
-            color: white;
-            font-size: 12px;
-            user-select: none;
-            animation: snowfall linear infinite;
-        }
-
-        @keyframes snowfall {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(100vh); }
-        }
-
-        /* Lớp phủ nền để làm mờ */
-        .background-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: -1;
-        }
-
-        /* Hộp profile */
+        /* Hộp profile với nền trong suốt */
         .profile-box {
             text-align: center;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.2); /* Nền trong suốt */
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); /* Hiệu ứng bóng mờ */
             width: 280px;
             transition: transform 0.3s ease-in-out;
             position: relative;
+            margin-top: 50px;
+            backdrop-filter: blur(10px); /* Thêm hiệu ứng làm mờ nền phía sau */
         }
 
         .profile-box:hover {
@@ -73,35 +41,36 @@
             box-shadow: 0 0 25px rgba(0, 255, 255, 0.8);
         }
 
-        /* Ảnh đại diện */
+        /* Khung ảnh đại diện với hiệu ứng rực lửa */
         .avatar-box {
             position: relative;
             display: inline-block;
+            overflow: hidden;
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(255, 69, 0, 0.8), 0 0 50px rgba(255, 140, 0, 0.6); /* Khung ảnh rực lửa */
+            animation: fire-glow 1.5s infinite alternate; /* Áp dụng hiệu ứng sáng như lửa */
         }
 
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            border: 3px solid transparent;
+            border: 5px solid transparent;
+            transition: transform 0.5s ease;
         }
 
-        /* Hiệu ứng rực cháy */
-        .fire-effect {
-            position: absolute;
-            top: -5px;
-            left: -5px;
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 165, 0, 0.8), rgba(255, 69, 0, 0.6), transparent);
-            box-shadow: 0 0 20px rgba(255, 69, 0, 0.8);
-            animation: fireAnimation 1s infinite alternate ease-in-out;
+        .avatar-box:hover .avatar {
+            transform: scale(1.1); /* Phóng to ảnh khi hover */
         }
 
-        @keyframes fireAnimation {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
+        /* Hiệu ứng ánh sáng rực lửa */
+        @keyframes fire-glow {
+            0% {
+                box-shadow: 0 0 20px rgba(255, 69, 0, 0.5), 0 0 30px rgba(255, 140, 0, 0.3);
+            }
+            100% {
+                box-shadow: 0 0 50px rgba(255, 69, 0, 0.8), 0 0 70px rgba(255, 140, 0, 0.6);
+            }
         }
 
         /* Tên profile */
@@ -120,7 +89,7 @@
             opacity: 0.8;
         }
 
-        /* Link mạng xã hội */
+        /* Link mạng xã hội với nền trong suốt */
         .social-links {
             margin-top: 15px;
         }
@@ -128,12 +97,28 @@
         .social-link {
             display: flex;
             align-items: center;
-            padding: 8px;
-            margin: 5px 0;
+            justify-content: center;
+            padding: 10px 20px;
+            margin: 8px 0;
             color: white;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 30px;  /* Cạnh tròn cho link */
             transition: 0.3s;
+            width: 200px;  /* Kích thước nhỏ hơn */
+            height: 40px;  /* Chiều cao nhỏ hơn */
+            justify-content: center;
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif; /* Chữ mềm mại */
+            font-weight: 600;
+            text-transform: uppercase;
+            background: transparent; /* Nền trong suốt */
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); /* Hiệu ứng sáng quanh các link */
+        }
+
+        .social-link:hover {
+            transform: scale(1.05);
+            background: transparent; /* Giữ nền trong suốt khi hover */
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.6);
         }
 
         .tiktok { background: #ff0050; }
@@ -141,52 +126,23 @@
         .telegram { background: #0088cc; }
         .website { background: #ff9900; }
 
-        .social-link:hover {
-            transform: scale(1.1);
-        }
-
-        /* Định dạng icon 3D */
         .social-icon {
-            width: 30px;
-            height: 30px;
-            vertical-align: middle;
-            margin-right: 10px;
+            width: 25px;
+            height: 25px;
             border-radius: 50%;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            transition: transform 0.3s ease-in-out;
+            margin-right: 10px;
         }
 
-        .social-link:hover .social-icon {
-            transform: scale(1.2);
+        /* Các liên kết sẽ được căn giữa và có hiệu ứng tròn */
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
         }
     </style>
 </head>
 <body>
-
-    <!-- Hiệu ứng tuyết -->
-    <script>
-        function createSnowflake() {
-            const snowflake = document.createElement("div");
-            snowflake.classList.add("snowflake");
-            snowflake.innerHTML = "❄";
-            document.body.appendChild(snowflake);
-
-            let startPos = Math.random() * window.innerWidth;
-            let duration = Math.random() * 5 + 5;
-            snowflake.style.left = `${startPos}px`;
-            snowflake.style.animationDuration = `${duration}s`;
-
-            setTimeout(() => {
-                snowflake.remove();
-            }, duration * 1000);
-        }
-        setInterval(createSnowflake, 200);
-
-        // Đảm bảo body tải đầy đủ trước khi hiển thị
-        window.onload = function() {
-            document.body.classList.add('loaded');
-        };
-    </script>
 
     <!-- Lớp phủ nền -->
     <div class="background-overlay"></div>
@@ -194,22 +150,21 @@
     <div class="profile-box">
         <div class="avatar-box">
             <img src="https://i.imgur.com/2FadDw0.jpeg" alt="Ảnh đại diện" class="avatar">
-            <div class="fire-effect"></div>
         </div>
         <h2 class="profile-name">Tuan Tai Profile</h2>
         <p class="profile-note">tuantaileanh là một con người buôn bán uy tín đẹp trai số 1 Nghi Xuân</p>
         <div class="social-links">
             <a href="https://tiktok.com/iosmod.site" target="_blank" class="social-link tiktok">
-                <img src="https://i.imgur.com/0z8FvXg.png" class="social-icon"> TikTok
+                <img src="https://i.imgur.com/hp7IHdH.png" class="social-icon"> Tiktok
             </a>
             <a href="https://facebook.com/imma65t" target="_blank" class="social-link facebook">
-                <img src="https://i.imgur.com/0RWzIyz.png" class="social-icon"> Facebook
+                <img src="https://i.imgur.com/3G0sP0J.png" class="social-icon"> Facebook
             </a>
             <a href="https://t.me/foredios" target="_blank" class="social-link telegram">
-                <img src="https://i.imgur.com/FJDp8Iw.png" class="social-icon"> Telegram
+                <img src="https://i.imgur.com/cDNhApQ.png" class="social-icon"> Telegram
             </a>
             <a href="https://iosmod.site" target="_blank" class="social-link website">
-                <img src="https://i.imgur.com/xXXE6nS.png" class="social-icon"> Website
+                <img src="https://i.imgur.com/Dw5OjBA.jpeg" class="social-icon"> Website
             </a>
         </div>
     </div>
@@ -219,5 +174,16 @@
         <source src="https://bientandat.site/nhac/350.mp3" type="audio/mp3">
     </audio>
 
+    <script>
+        // Kiểm tra và phát nhạc khi cuộn trang
+        window.addEventListener('scroll', function() {
+            var audio = document.getElementById('backgroundMusic');
+            if (window.scrollY > 50 && audio.paused) { // Nếu cuộn trang và nhạc chưa phát
+                audio.play().catch(function(error) {
+                    console.log("Nhạc không thể tự động phát:", error);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
