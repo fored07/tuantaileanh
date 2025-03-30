@@ -74,7 +74,8 @@
         .buttons {
             margin-top: 20px;
             display: flex;
-            gap: 20px;
+            justify-content: center;
+            gap: 50px;
             position: relative;
         }
 
@@ -97,7 +98,6 @@
         .btn {
             font-size: 16px;
             padding: 8px 16px;
-            margin: 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -176,12 +176,19 @@
         });
 
         const noButton = document.getElementById("no");
+        let canMove = true;
 
         noButton.addEventListener("mouseenter", function () {
-            const x = Math.random() * (window.innerWidth - 100);
-            const y = Math.random() * (window.innerHeight - 50);
-            noButton.style.left = `${x}px`;
-            noButton.style.top = `${y}px`;
+            if (canMove) {
+                const x = Math.random() * (window.innerWidth / 2);
+                const y = Math.random() * (window.innerHeight / 2);
+                noButton.style.left = `${x}px`;
+                noButton.style.top = `${y}px`;
+            }
+        });
+
+        noButton.addEventListener("click", function () {
+            canMove = false; // Khi bấm vào, nút không còn chạy trốn nữa
         });
 
     </script>
