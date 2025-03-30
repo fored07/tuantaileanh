@@ -31,10 +31,8 @@
             background-color: red;
             position: relative;
             transform: rotate(-45deg);
-            transition: transform 1s ease-in-out;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
+            cursor: pointer;
         }
 
         .heart-container::before, 
@@ -57,42 +55,6 @@
             top: 0;
         }
 
-        /* Hộp đăng nhập bên trong trái tim */
-        .login-box {
-            width: 120px;
-            height: 120px;
-            transform: rotate(45deg);
-            background: white;
-            padding: 10px;
-            border-radius: 10px;
-            text-align: center;
-        }
-
-        input {
-            display: block;
-            width: 100px;
-            margin: 5px auto;
-            padding: 5px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            font-size: 12px;
-        }
-
-        button {
-            font-size: 14px;
-            padding: 5px;
-            background-color: #ff6699;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background-color: #ff3366;
-        }
-
         /* Màn hình tỏ tình */
         .love-screen {
             display: none;
@@ -106,12 +68,8 @@
 
         .buttons {
             margin-top: 20px;
-        }
-
-        #no {
-            background-color: #999;
-            color: white;
-            position: absolute;
+            position: relative;
+            height: 50px;
         }
 
         /* Màn hình cảm ơn */
@@ -127,29 +85,45 @@
             width: 300px;
             margin-top: 20px;
         }
+
+        .btn {
+            font-size: 18px;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #yes {
+            background-color: #ff4d4d;
+            color: white;
+        }
+
+        #no {
+            background-color: #999;
+            color: white;
+            position: absolute;
+            transition: all 0.2s ease-in-out;
+            left: 50%;
+            transform: translateX(-50%);
+        }
     </style>
 </head>
 <body>
 
-    <!-- Màn hình đăng nhập (bên trong trái tim) -->
+    <!-- Màn hình đăng nhập (bấm vào trái tim để tiếp tục) -->
     <div class="login-screen" id="loginScreen">
-        <div class="heart-container" id="heart">
-            <div class="login-box">
-                <h2>Đăng nhập để nhận bất ngờ 💖</h2>
-                <input type="text" placeholder="Tài khoản" id="username">
-                <input type="password" placeholder="Mật khẩu" id="password">
-                <button onclick="login()">Đăng nhập</button>
-            </div>
-        </div>
+        <div class="heart-container" id="heart" onclick="startLove()"></div>
     </div>
 
     <!-- Màn hình tỏ tình -->
     <div class="love-screen" id="loveScreen">
-        <h1>💖 Cậu có đồng ý làm người yêu tớ không? 💖</h1>
-        <img src="https://i.imgur.com/oHbHq4Y.png" alt="cute" class="cute-img">
+        <h1>💖 Bạn làm ni mình đê😝😝😝 💖</h1>
+        <img src="https://i.imgur.com/7bDA7ik.jpeg" alt="cute" class="cute-img">
         <div class="buttons">
-            <button id="yes">Đồng ý ❤️</button>
-            <button id="no">Không 😢</button>
+            <button id="yes" class="btn">Đồng ý ❤️</button>
+            <button id="no" class="btn">Không 😢</button>
         </div>
     </div>
 
@@ -160,14 +134,15 @@
     </div>
 
     <script>
-        function login() {
+        function startLove() {
             const heart = document.getElementById("heart");
             heart.style.transform = "scale(5) rotate(-45deg)"; // Trái tim lớn lên
+            heart.style.opacity = "0"; // Mờ dần
 
             setTimeout(() => {
-                document.getElementById("loginScreen").style.display = "none"; // Ẩn màn hình đăng nhập
+                document.getElementById("loginScreen").style.display = "none"; // Ẩn màn hình trái tim
                 document.getElementById("loveScreen").style.display = "block"; // Hiện màn hình tỏ tình
-            }, 1000);
+            }, 1500);
         }
 
         document.getElementById("yes").addEventListener("click", function () {
@@ -176,12 +151,14 @@
         });
 
         const noButton = document.getElementById("no");
-        noButton.addEventListener("mouseover", function () {
+
+        noButton.addEventListener("mouseenter", function () {
             const x = Math.random() * (window.innerWidth - noButton.clientWidth);
             const y = Math.random() * (window.innerHeight - noButton.clientHeight);
             noButton.style.left = `${x}px`;
             noButton.style.top = `${y}px`;
         });
+
     </script>
 
 </body>
