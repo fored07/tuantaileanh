@@ -1,199 +1,119 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tỏ tình với cậu</title>
-    <style>
-        body {
-            text-align: center;
-            font-family: Arial, sans-serif;
-            background-color: #ffdde1;
-            overflow: hidden;
-            height: 100vh;
-            margin: 0;
-        }
-
-        /* Màn hình đăng nhập */
-        .login-screen {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Quả trái tim */
-        .heart-container {
-            width: 120px;
-            height: 120px;
-            background-color: red;
-            position: relative;
-            transform: rotate(-45deg);
-            transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
-            cursor: pointer;
-        }
-
-        .heart-container::before, 
-        .heart-container::after {
-            content: "";
-            width: 120px;
-            height: 120px;
-            background-color: red;
-            border-radius: 50%;
-            position: absolute;
-        }
-
-        .heart-container::before {
-            top: -60px;
-            left: 0;
-        }
-
-        .heart-container::after {
-            left: 60px;
-            top: 0;
-        }
-
-        /* Màn hình tỏ tình */
-        .love-screen {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            padding: 20px;
-        }
-
-        .cute-img {
-            width: 80%;
-            max-width: 250px;
-            margin: 20px 0;
-        }
-
-        .buttons {
-            margin-top: 20px;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            padding: 0 20px;
-            position: relative;
-        }
-
-        /* Màn hình cảm ơn */
-        .thank-you-screen {
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            padding: 20px;
-        }
-
-        .thank-you-img {
-            width: 80%;
-            max-width: 250px;
-            margin-top: 20px;
-        }
-
-        .btn {
-            font-size: 16px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        #yes {
-            background-color: #ff4d4d;
-            color: white;
-        }
-
-        #no {
-            background-color: #999;
-            color: white;
-            position: absolute;
-            right: 20px;
-            transition: all 0.3s ease-in-out;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hack Flu</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap');
+    body {
+      font-family: 'Comfortaa', sans-serif;
+      background: #18122B;
+      color: #E0A3FF;
+      text-align: center;
+      margin: 50px;
+    }
+    h2 {
+      font-size: 28px;
+      font-weight: bold;
+      text-shadow: 0 0 10px #FF99CC, 0 0 20px #66CCFF;
+    }
+    .button-group button, button[type="submit"] {
+      background: linear-gradient(90deg, #FF99CC, #66CCFF);
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: 0.3s;
+      box-shadow: 0px 4px 15px rgba(255, 153, 204, 0.7);
+    }
+    .button-group button:hover, button[type="submit"]:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 4px 20px rgba(102, 204, 255, 0.9);
+    }
+    form {
+      display: inline-block;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255, 153, 204, 0.7);
+    }
+    input {
+      width: 100%;
+      margin: 10px 0 20px;
+      padding: 12px;
+      font-size: 16px;
+      background: #2C1F46;
+      color: #E0A3FF;
+      border: 2px solid #FF99CC;
+      border-radius: 8px;
+      outline: none;
+    }
+    .glow-text {
+      font-size: 24px;
+      font-weight: bold;
+      text-shadow: 0 0 10px #FF99CC, 0 0 20px #66CCFF, 0 0 30px #FF99CC;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- Nhạc tự động phát -->
-    <audio id="bgMusic" loop>
-        <source src="https://bientandat.site/nhac/350.mp3" type="audio/mp3">
-    </audio>
+  <h2 class="glow-text">🎀 Gửi Mã Giao Dịch Và Liên Hệ Admin
 
-    <!-- Màn hình đăng nhập (bấm vào trái tim để tiếp tục) -->
-    <div class="login-screen" id="loginScreen">
-        <div class="heart-container" id="heart" onclick="startLove()"></div>
-    </div>
+  <form id="udidForm">
 
-    <!-- Màn hình tỏ tình -->
-    <div class="love-screen" id="loveScreen">
-        <h1>💖 Bạn làm ni mình đê😝😝😝 💖</h1>
-        <img src="https://i.imgur.com/7bDA7ik.jpeg" alt="cute" class="cute-img">
-        <div class="buttons">
-            <button id="yes" class="btn">Đồng ý ❤️</button>
-            <button id="no" class="btn">Không 😢</button>
-        </div>
-    </div>
+    <label for="transaction_id">💳 Mã giao dịch:</label>
+    <input type="text" id="transaction_id" name="transaction_id" required placeholder="Nhập mã giao dịch">
 
-    <!-- Màn hình cảm ơn -->
-    <div class="thank-you-screen" id="thankYouScreen">
-        <h1>Cảm ơn b vì đã đồng ý làm ni mìnnnn❄️❄️❄️</h1>
-        <img src="https://i.imgur.com/uotmmGm.jpeg" alt="Hình ảnh cảm ơn" class="thank-you-img">
-    </div>
+    <button type="submit">🚀 Gửi Thông Tin</button>
+  </form>
 
-    <script>
-        // Tự động phát nhạc khi vào trang
-        document.addEventListener("DOMContentLoaded", function () {
-            const audio = document.getElementById("bgMusic");
-            audio.play().catch(error => console.log("Nhạc chưa được bật do chính sách trình duyệt."));
-        });
+  <script>
+    document.getElementById("udidForm").addEventListener("submit", function(event) {
+      event.preventDefault();
 
-        // Phát lại nhạc khi cuộn trang
-        document.addEventListener("scroll", function () {
-            const audio = document.getElementById("bgMusic");
-            if (audio.paused) {
-                audio.play();
-            }
-        });
+      var udid = document.getElementById("udid").value;
+      var transaction_id = document.getElementById("transaction_id").value;
 
-        function startLove() {
-            const heart = document.getElementById("heart");
-            heart.style.transform = "scale(5) rotate(-45deg)"; // Trái tim lớn lên
-            heart.style.opacity = "0"; // Mờ dần
+      function formatTime(date) {
+        const pad = (n) => (n < 10 ? "0" + n : n);
+        return `⏰ ${pad(date.getHours())}:${pad(date.getMinutes())} - ${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()}`;
+      }
 
-            setTimeout(() => {
-                document.getElementById("loginScreen").style.display = "none"; // Ẩn màn hình trái tim
-                document.getElementById("loveScreen").style.display = "flex"; // Hiện màn hình tỏ tình
-            }, 1500);
+      var now = new Date();
+      var currentTime = formatTime(now);
+
+      var botToken = "7111835207:AAHgAuvjpMFiYdg7SqoVR8EcTmBTeBviLhA"; // Thay bằng token bot
+      var chatId = "-1002538721840"; // Thay bằng chat ID
+
+      var message = `📢 **Giao dịch mới:**\n\n📌 **ID GAME:** ${udid}\n💳 **Mã giao dịch:** ${transaction_id}\n🕒 **Thời gian gửi:** ${currentTime}`;
+
+      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: "Markdown"
+        })
+      }).then(response => {
+        if (response.ok) {
+          alert("✅ Gửi thông tin thành công! Admin sẽ xử lý sớm.");
+          document.getElementById("udidForm").reset();
+        } else {
+          alert("❌ Gửi thất bại. Vui lòng thử lại hoặc liên hệ Admin.");
         }
-
-        document.getElementById("yes").addEventListener("click", function () {
-            document.getElementById("loveScreen").style.display = "none"; // Ẩn màn hình tỏ tình
-            document.getElementById("thankYouScreen").style.display = "flex"; // Hiện màn hình cảm ơn
-        });
-
-        const noButton = document.getElementById("no");
-        let canMove = true;
-
-        noButton.addEventListener("mouseenter", function () {
-            if (canMove) {
-                const x = Math.random() * (window.innerWidth - 100);
-                const y = Math.random() * (window.innerHeight - 100);
-                noButton.style.left = `${x}px`;
-                noButton.style.top = `${y}px`;
-            }
-        });
-
-        noButton.addEventListener("click", function () {
-            canMove = false; // Khi bấm vào, nút không còn chạy trốn nữa
-        });
-
-    </script>
+      }).catch(error => {
+        alert("Lỗi kết nối Telegram: " + error.message);
+      });
+    });
+  </script>
 
 </body>
 </html>
