@@ -43,6 +43,7 @@
       padding: 30px;
       border-radius: 15px;
       box-shadow: 0 0 20px rgba(255, 153, 204, 0.7);
+      margin-top: 30px;
     }
     input {
       width: 100%;
@@ -65,13 +66,15 @@
 <body>
 
   <h2 class="glow-text">🎀 Gửi Mã Giao Dịch Và Liên Hệ Admin</h2>
-<div class="button-group">
-<button
-  onclick="window.open('https://t.me/foredios','_blank')">⚙️Tele Admin</button>
-<button
-  onclick="window.open('https://zalo.me/0976083497','_blank')">🧟‍♂️Zalo Admin</button>
+
+  <div class="button-group">
+    <button onclick="window.open('https://t.me/foredios','_blank')">⚙️Tele Admin</button>
+    <button onclick="window.open('https://zalo.me/0976083497','_blank')">🧟‍♂️Zalo Admin</button>
+  </div>
 
   <form id="udidForm">
+    <label for="udid">📌 Nhập ID Game:</label>
+    <input type="text" id="udid" name="udid" required placeholder="Nhập ID game tại đây">
 
     <label for="transaction_id">💳 Mã giao dịch:</label>
     <input type="text" id="transaction_id" name="transaction_id" required placeholder="Nhập mã giao dịch">
@@ -94,10 +97,10 @@
       var now = new Date();
       var currentTime = formatTime(now);
 
-      var botToken = "7117755834:AAHTy4oTigeKOEM40BqpAzCKzqsJeTt0TlY"; // Thay bằng token bot
-      var chatId = "-1002538721840"; // Thay bằng chat ID
+      var botToken = "7117755834:AAHTy4oTigeKOEM40BqpAzCKzqsJeTt0TlY"; // Thay bằng token bot thật
+      var chatId = "-1002538721840"; // Thay bằng chat ID của bạn
 
-      var message = `📢 **Giao dịch mới:**\n\n📌 **ID GAME:** ${udid}\n💳 **Mã giao dịch:** ${transaction_id}\n🕒 **Thời gian gửi:** ${currentTime}`;
+      var message = `📢 *Giao dịch mới:*\n\n📌 *ID GAME:* ${udid}\n💳 *Mã giao dịch:* ${transaction_id}\n🕒 *Thời gian gửi:* ${currentTime}`;
 
       fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: "POST",
