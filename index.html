@@ -2,49 +2,34 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hack Flu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HACK FLU BY IOSMOD</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap');
+
     body {
       font-family: 'Comfortaa', sans-serif;
       background: #18122B;
       color: #E0A3FF;
       text-align: center;
-      margin: 50px;
+      margin: 50px 20px;
     }
+
     h2 {
-      font-size: 28px;
-      font-weight: bold;
+      font-size: 26px;
       text-shadow: 0 0 10px #FF99CC, 0 0 20px #66CCFF;
     }
-    .button-group button, button[type="submit"] {
-      background: linear-gradient(90deg, #FF99CC, #66CCFF);
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 10px;
-      font-size: 16px;
-      cursor: pointer;
-      margin: 10px;
-      font-weight: bold;
-      text-transform: uppercase;
-      transition: 0.3s;
-      box-shadow: 0px 4px 15px rgba(255, 153, 204, 0.7);
-    }
-    .button-group button:hover, button[type="submit"]:hover {
-      transform: scale(1.05);
-      box-shadow: 0px 4px 20px rgba(102, 204, 255, 0.9);
-    }
+
     form {
-      display: inline-block;
-      text-align: left;
       background: rgba(255, 255, 255, 0.05);
       padding: 30px;
       border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255, 153, 204, 0.7);
-      margin-top: 30px;
+      display: inline-block;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(255, 153, 204, 0.5);
     }
+
     input {
       width: 100%;
       margin: 10px 0 20px;
@@ -54,74 +39,111 @@
       color: #E0A3FF;
       border: 2px solid #FF99CC;
       border-radius: 8px;
-      outline: none;
     }
-    .glow-text {
-      font-size: 24px;
+
+    button[type="submit"] {
+      background: linear-gradient(90deg, #FF99CC, #66CCFF);
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
       font-weight: bold;
-      text-shadow: 0 0 10px #FF99CC, 0 0 20px #66CCFF, 0 0 30px #FF99CC;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    button[type="submit"]:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 4px 20px rgba(102, 204, 255, 0.9);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      z-index: 999;
+    }
+
+    .toast.show {
+      opacity: 1;
+    }
+
+    @media screen and (max-width: 480px) {
+      form { width: 95%; }
     }
   </style>
 </head>
 <body>
 
-  <h2 class="glow-text">🎀 Gửi Mã Giao Dịch Và Liên Hệ Admin</h2>
-
-  <div class="button-group">
-    <button onclick="window.open('https://t.me/foredios','_blank')">⚙️Tele Admin</button>
-    <button onclick="window.open('https://zalo.me/0976083497','_blank')">🧟‍♂️Zalo Admin</button>
-  </div>
-
+  <h2>📤 Gửi Mã Giao Dịch</h2>
+<div class="button-group">
+<button
+onclick="window.open('https://
+t.me/foredios',
+'_blank')">❤️ Tele Admin</
+button>
+<button
+onclick="window.open('https://
+zalo.me/0976083497) '_blank')">
+Zalo Admin</button>
+</div>
   <form id="udidForm">
-    <label for="udid">📌 Nhập ID Game:</label>
-    <input type="text" id="udid" name="udid" required placeholder="Nhập ID game tại đây">
-
-    <label for="transaction_id">💳 Mã giao dịch:</label>
-    <input type="text" id="transaction_id" name="transaction_id" required placeholder="Nhập mã giao dịch">
-
+    <input type="text" id="transaction_id" placeholder="Nhập mã giao dịch..." required />
     <button type="submit">🚀 Gửi Thông Tin</button>
   </form>
 
+  <div id="toast" class="toast">Đã gửi thành công!</div>
+
+  <audio id="successSound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_3e02c2f2be.mp3"></audio>
+
   <script>
-    document.getElementById("udidForm").addEventListener("submit", function(event) {
+    const form = document.getElementById("udidForm");
+    const toast = document.getElementById("toast");
+    const successSound = document.getElementById("successSound");
+
+    form.addEventListener("submit", async function (event) {
       event.preventDefault();
+      const transaction_id = document.getElementById("transaction_id").value.trim();
 
-      var udid = document.getElementById("udid").value;
-      var transaction_id = document.getElementById("transaction_id").value;
+      if (!transaction_id) return alert("Vui lòng nhập mã giao dịch.");
 
-      function formatTime(date) {
-        const pad = (n) => (n < 10 ? "0" + n : n);
-        return `⏰ ${pad(date.getHours())}:${pad(date.getMinutes())} - ${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()}`;
-      }
+      const now = new Date();
+      const pad = (n) => (n < 10 ? "0" + n : n);
+      const time = `⏰ ${pad(now.getHours())}:${pad(now.getMinutes())} - ${pad(now.getDate())}/${pad(now.getMonth() + 1)}/${now.getFullYear()}`;
 
-      var now = new Date();
-      var currentTime = formatTime(now);
+      const botToken = "7117755834:AAHTy4oTigeKOEM40BqpAzCKzqsJeTt0TlY";
+      const chatId = "-1002538721840";
+      const message = `📢 **Giao dịch mới:**\n💳 **Mã giao dịch:** ${transaction_id}\n🕒 **Thời gian:** ${time}`;
 
-      var botToken = "7117755834:AAHTy4oTigeKOEM40BqpAzCKzqsJeTt0TlY"; // Thay bằng token bot thật
-      var chatId = "-1002538721840"; // Thay bằng chat ID của bạn
-
-      var message = `📢 *Giao dịch mới:*\n\n📌 *ID GAME:* ${udid}\n💳 *Mã giao dịch:* ${transaction_id}\n🕒 *Thời gian gửi:* ${currentTime}`;
-
-      fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      // Gửi về Telegram
+      await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: "Markdown"
-        })
-      }).then(response => {
-        if (response.ok) {
-          alert("✅ Gửi thông tin thành công! Admin sẽ xử lý sớm.");
-          document.getElementById("udidForm").reset();
-        } else {
-          alert("❌ Gửi thất bại. Vui lòng thử lại hoặc liên hệ Admin.");
-        }
-      }).catch(error => {
-        alert("Lỗi kết nối Telegram: " + error.message);
+        body: JSON.stringify({ chat_id: chatId, text: message, parse_mode: "Markdown" })
       });
+
+      // Gửi về webhook backend
+      await fetch("https://yourdomain.com/webhook", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ transaction_id, timestamp: now.toISOString() })
+      });
+
+      // Xử lý UI
+      form.reset();
+      successSound.play();
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 3000);
     });
   </script>
-
 </body>
 </html>
